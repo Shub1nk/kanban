@@ -4,7 +4,7 @@
     <div class="column__content">
       <ul class="column__card-list">
 
-        <draggable v-model="onHold" :options="{group: 'cards'}" @start="alertMessage" @end="end">
+        <draggable v-model="onHold" :options="{group: 'cards'}" @start="drag=true" @end="drag=false">
 
           <li class="column__card-list__item"
               v-for="card in onHold" :key="card.id">
@@ -38,19 +38,13 @@ export default {
         return this.$store.state.onHold;
       },
       set(value) {
-        this.$store.commit('SET_ONHOLD', value)
+        this.$store.commit('SET_ON_HOLD', value)
       }
     }
   },
   methods: {
     remove(currentId) {
       this.$store.dispatch("removeCard", currentId);
-    },
-    alertMessage() {
-      console.log('alertMessage');
-    },
-    end() {
-      console.log('отпустили карточку')
     }
   },
   components: {

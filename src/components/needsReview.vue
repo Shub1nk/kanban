@@ -31,7 +31,15 @@ import {mapGetters} from 'vuex';
   export default {
     name: 'needs-review',
     computed: {
-      ...mapGetters(['needsReview'])
+      // ...mapGetters(['needsReview'])
+      needsReview: {
+      get() {
+        return this.$store.state.needsReview;
+      },
+      set(value) {
+        this.$store.commit('SET_NEEDS_REVIEW', value)
+      }
+    }
     },
     methods: {
       remove(currentId) {

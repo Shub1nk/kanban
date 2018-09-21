@@ -17,15 +17,29 @@ const state = {
     {id: 850, text: 'text', area: 'on-hold'},
     {id: 950, text: 'text', area: 'on-hold'},
     {id: 1050, text: 'text', area: 'on-hold'},
-  ]
+  ],
+  needsReview: [
+    {id: 123, text: 'text', area: 'on-hold'},
+    {id: 321, text: 'text', area: 'on-hold'},
+  ],
+  approved: [
+    {id: 111, text: 'text', area: 'on-hold'},
+    {id: 222, text: 'text', area: 'on-hold'},
+  ],
 };
 
 const mutations = {
-  SET_ONHOLD(state, payload) {
+  SET_ON_HOLD(state, payload) {
     state.onHold = payload;
   },
-  SET_INPROGRESS(state, payload) {
+  SET_IN_PROGRESS(state, payload) {
     state.inProgress = payload;
+  },
+  SET_NEEDS_REVIEW(state, payload) {
+    state.needsReview = payload;
+  },
+  SET_APPROVED(state, payload) {
+    state.approved = payload;
   },
 
 

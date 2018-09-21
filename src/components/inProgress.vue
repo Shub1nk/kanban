@@ -35,11 +35,10 @@ import {mapGetters} from 'vuex';
       // ...mapGetters(['inProgress'])
       inProgress: {
       get() {
-        console.log(this.$store.state.inProgress);
         return this.$store.state.inProgress;
       },
       set(value) {
-        this.$store.commit('SET_INPROGRESS', value)
+        this.$store.commit('SET_IN_PROGRESS', value)
       }
     }
     },

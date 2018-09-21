@@ -31,7 +31,15 @@ import {mapGetters} from 'vuex';
   export default {
     name: 'approved',
     computed: {
-      ...mapGetters(['approved'])
+      // ...mapGetters(['approved'])
+      approved: {
+      get() {
+        return this.$store.state.approved;
+      },
+      set(value) {
+        this.$store.commit('SET_APPROVED', value)
+      }
+    }
     },
     methods: {
       remove(currentId) {
