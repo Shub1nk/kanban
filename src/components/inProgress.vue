@@ -32,7 +32,16 @@ import {mapGetters} from 'vuex';
   export default {
     name: 'in-progress',
     computed: {
-      ...mapGetters(['inProgress'])
+      // ...mapGetters(['inProgress'])
+      inProgress: {
+      get() {
+        console.log(this.$store.state.inProgress);
+        return this.$store.state.inProgress;
+      },
+      set(value) {
+        this.$store.commit('SET_INPROGRESS', value)
+      }
+    }
     },
     methods: {
       remove(currentId) {

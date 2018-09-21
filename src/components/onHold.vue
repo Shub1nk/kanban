@@ -4,8 +4,8 @@
     <div class="column__content">
       <ul class="column__card-list">
 
-        <draggable v-model="onHold" :options="{group: 'cards'}" @start="drag=true" @end="drag=false">
-          
+        <draggable v-model="onHold" :options="{group: 'cards'}" @start="alertMessage" @end="end">
+
           <li class="column__card-list__item"
               v-for="card in onHold" :key="card.id">
             <p class="column__card-list__item__id"><b>id:</b> {{card.id}}</p>
@@ -31,11 +31,26 @@ import { mapGetters } from "vuex";
 export default {
   name: "on-hold",
   computed: {
-    ...mapGetters(["onHold"])
+    // ...mapGetters(["onHold"])
+    onHold: {
+      get() {
+        console.log(this.$store.state.onHold);
+        return this.$store.state.onHold;
+      },
+      set(value) {
+        this.$store.commit('SET_ONHOLD', value)
+      }
+    }
   },
   methods: {
     remove(currentId) {
       this.$store.dispatch("removeCard", currentId);
+    },
+    alertMessage() {
+      console.log('alertMessage');
+    },
+    end() {
+      console.log('отпустили карточку')
     }
   },
   components: {

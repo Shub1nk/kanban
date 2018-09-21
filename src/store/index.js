@@ -3,10 +3,33 @@ import Vuex from 'vuex';
 
 const state = {
   idCard: 0,
-  cardsList: []
+  cardsList: [],
+  onHold: [
+    {id: 100, text: 'text', area: 'on-hold'},
+    {id: 200, text: 'text', area: 'on-hold'},
+    {id: 300, text: 'text', area: 'on-hold'},
+    {id: 400, text: 'text', area: 'on-hold'},
+    {id: 500, text: 'text', area: 'on-hold'},
+  ],
+  inProgress: [
+    {id: 650, text: 'text', area: 'on-hold'},
+    {id: 750, text: 'text', area: 'on-hold'},
+    {id: 850, text: 'text', area: 'on-hold'},
+    {id: 950, text: 'text', area: 'on-hold'},
+    {id: 1050, text: 'text', area: 'on-hold'},
+  ]
 };
 
 const mutations = {
+  SET_ONHOLD(state, payload) {
+    state.onHold = payload;
+  },
+  SET_INPROGRESS(state, payload) {
+    state.inProgress = payload;
+  },
+
+
+
   INCREASE_ID_CARD(state) {
     state.idCard++;
   },
