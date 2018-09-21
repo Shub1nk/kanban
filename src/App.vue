@@ -16,20 +16,29 @@ import approved from "./components/approved";
 export default {
   name: "app",
   created() {
-    this.$store.dispatch('getData');
+    this.$store.dispatch("getData");
   },
   components: {
     onHold,
     inProgress,
     needsReview,
-    approved
+    approved,
   }
 };
 </script>
 
 <style lang="scss">
+
+.box {
+  width: 100px;
+  // height: 100px;
+  background: white;
+  margin: 5px;
+}
+
+
 #app {
-  font-family: 'Tahoma';
+  font-family: "Tahoma";
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
@@ -148,7 +157,6 @@ body {
             background: gray;
           }
         }
-
 
         .column__button__remove-card {
           background: #fa7e45;
