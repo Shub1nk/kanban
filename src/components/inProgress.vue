@@ -4,7 +4,7 @@
     <div class="column__content">
       <ul class="column__card-list">
 
-        <draggable v-model="inProgress" :options="{group: 'cards'}" @start="drag=true" @end="drag=false">
+        <draggable v-model="inProgress" :options="{group: 'cards'}" @end="setDataLocalStorage">
 
           <li class="column__card-list__item"
           v-for="card in inProgress" :key="card.id">
@@ -44,8 +44,16 @@ import {mapGetters} from 'vuex';
     },
     methods: {
       remove(currentId) {
-        this.$store.dispatch('removeCard', currentId)
-      }
+        let data = this.$store.state.inProgress;
+      let indexToRemove = data.findIndex(obj => obj.id === currentId);
+      data.splice(indexToRemove, 1);
+      this.$store.commit("SET_IN_PROGRESS", data);
+
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
+      },
+    setDataLocalStorage() {
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
+    }
     },
     components: {
       formAddCard,

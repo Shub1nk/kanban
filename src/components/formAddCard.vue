@@ -54,7 +54,35 @@ export default {
 
       // console.log(cardObj);
 
-      this.$store.dispatch('addCard', cardObj)
+      switch (area) {
+        case 'on-hold': {
+          let data = this.$store.state.onHold;
+          data.push(cardObj);
+          this.$store.commit('SET_ON_HOLD', data); 
+          break;
+        }
+        case 'in-progress': {
+          let data = this.$store.state.inProgress;
+          data.push(cardObj);
+          this.$store.commit('SET_IN_PROGRESS', data); 
+          break;
+        }
+        case 'needs-review': {
+          let data = this.$store.state.needsReview;
+          data.push(cardObj);
+          this.$store.commit('SET_NEEDS_REVIEW', data); 
+          break;
+        }
+        case 'approved': {
+          let data = this.$store.state.approved
+          data.push(cardObj);
+          this.$store.commit('SET_APPROVED', data); 
+          break;
+        }
+      }
+
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
+      // this.$store.dispatch('addCard', cardObj)
     },
     closeForm() {
       this.$refs.textarea.value = '';

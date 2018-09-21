@@ -4,7 +4,7 @@
     <div class="column__content">
       <ul class="column__card-list">
 
-        <draggable v-model="needsReview" :options="{group: 'cards'}" @start="drag=true" @end="drag=false">
+        <draggable v-model="needsReview" :options="{group: 'cards'}" @end="setDataLocalStorage">
 
           <li class="column__card-list__item"
           v-for="card in needsReview" :key="card.id">
@@ -23,36 +23,43 @@
 </template>
 
 <script>
-import formAddCard from './formAddCard';
-import draggable from "vuedraggable"
+import formAddCard from "./formAddCard";
+import draggable from "vuedraggable";
 
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 
-  export default {
-    name: 'needs-review',
-    computed: {
-      // ...mapGetters(['needsReview'])
-      needsReview: {
+export default {
+  name: "needs-review",
+  computed: {
+    // ...mapGetters(['needsReview'])
+    needsReview: {
       get() {
         return this.$store.state.needsReview;
       },
       set(value) {
-        this.$store.commit('SET_NEEDS_REVIEW', value)
+        this.$store.commit("SET_NEEDS_REVIEW", value);
       }
     }
+  },
+  methods: {
+    remove(currentId) {
+      let data = this.$store.state.needsReview;
+      let indexToRemove = data.findIndex(obj => obj.id === currentId);
+      data.splice(indexToRemove, 1);
+      this.$store.commit("SET_NEEDS_REVIEW", data);
+
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
     },
-    methods: {
-      remove(currentId) {
-        this.$store.dispatch('removeCard', currentId)
-      }
-    },
-    components: {
-      formAddCard,
-      draggable
+    setDataLocalStorage() {
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
     }
+  },
+  components: {
+    formAddCard,
+    draggable
   }
+};
 </script>
 
 <style scoped>
-
 </style>

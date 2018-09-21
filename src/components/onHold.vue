@@ -2,9 +2,11 @@
   <div class="column">
     <h3 class="column__title background-orange">ON-HOLD - {{onHold.length}}</h3>
     <div class="column__content">
-      <ul class="column__card-list">
 
-        <draggable v-model="onHold" :options="{group: 'cards'}" @start="drag=true" @end="drag=false">
+
+      <ul class="column__card-list">
+        <draggable v-model="onHold" :options="{group: 'cards'}" @end="setDataLocalStorage">
+        
 
           <li class="column__card-list__item"
               v-for="card in onHold" :key="card.id">
@@ -13,9 +15,10 @@
             <button class="column__card-list__item__del"
                     @click="remove(card.id)">&#10006;</button>
           </li>
-        </draggable>
         
+        </draggable>
       </ul>
+      
       <form-add-card area="on-hold"/>
     </div>      
   </div>
@@ -24,7 +27,7 @@
 <script>
 import formAddCard from "./formAddCard";
 
-import draggable from "vuedraggable"
+import draggable from "vuedraggable";
 
 import { mapGetters } from "vuex";
 
@@ -34,17 +37,24 @@ export default {
     // ...mapGetters(["onHold"])
     onHold: {
       get() {
-        console.log(this.$store.state.onHold);
         return this.$store.state.onHold;
       },
       set(value) {
-        this.$store.commit('SET_ON_HOLD', value)
+        this.$store.commit("SET_ON_HOLD", value);
       }
     }
   },
   methods: {
     remove(currentId) {
-      this.$store.dispatch("removeCard", currentId);
+      let data = this.$store.state.onHold;
+      let indexToRemove = data.findIndex(obj => obj.id === currentId);
+      data.splice(indexToRemove, 1);
+      this.$store.commit("SET_ON_HOLD", data);
+
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
+    },
+    setDataLocalStorage() {
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
     }
   },
   components: {
