@@ -1,10 +1,19 @@
 <template>
-  <div class="canban">
-    <on-hold></on-hold>
-    <in-progress></in-progress>
-    <needs-review></needs-review>
-    <approved></approved>
+  <div>
+    <div class="canban">
+      <on-hold></on-hold>
+      <in-progress></in-progress>
+      <needs-review></needs-review>
+      <approved></approved>
+    </div>
+    <hr>
+    <div class="canban">
+      <template v-for="column in columnsList">
+      <column :column="column"></column>
+    </template>
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -12,9 +21,17 @@ import onHold from "./components/onHold";
 import inProgress from "./components/inProgress";
 import needsReview from "./components/needsReview";
 import approved from "./components/approved";
+import column from "./components/column";
+
+import test from "./components/test";
 
 export default {
   name: "app",
+  data() {
+    return {
+      columnsList: ["on-hold", "in-progress", "needs-review", "approved"]
+    };
+  },
   created() {
     this.$store.dispatch("getData");
   },
@@ -23,19 +40,20 @@ export default {
     inProgress,
     needsReview,
     approved,
+    column,
+
+    test
   }
 };
 </script>
 
 <style lang="scss">
-
 .box {
   width: 100px;
   // height: 100px;
   background: white;
   margin: 5px;
 }
-
 
 #app {
   font-family: "Tahoma";
