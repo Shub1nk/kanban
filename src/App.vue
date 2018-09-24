@@ -23,8 +23,6 @@ import needsReview from "./components/needsReview";
 import approved from "./components/approved";
 import column from "./components/column";
 
-import test from "./components/test";
-
 export default {
   name: "app",
   data() {
@@ -40,9 +38,7 @@ export default {
     inProgress,
     needsReview,
     approved,
-    column,
-
-    test
+    column
   }
 };
 </script>
@@ -66,16 +62,16 @@ body {
   background: #33363d;
 }
 
-.background-orange {
+.background_on-hold {
   background: #fb7e46;
 }
-.background-blue {
+.background_in-progress{
   background: #2a92bf;
 }
-.background-yellow {
+.background_needs-review {
   background: #f4ce46;
 }
-.background-green {
+.background_approved {
   background: #00b961;
 }
 
@@ -84,8 +80,11 @@ body {
   justify-content: space-between;
   width: 1000px;
   margin: 0 auto;
+}
 
-  .column {
+
+  
+.column {
     width: 24%;
     overflow: hidden;
 
@@ -94,6 +93,7 @@ body {
       font-weight: normal;
       color: white;
       margin: 0;
+      text-transform: uppercase;
     }
 
     .column__content {
@@ -182,6 +182,5 @@ body {
       }
     }
   }
-}
 </style>
 

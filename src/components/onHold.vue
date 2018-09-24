@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <h3 class="column__title background-orange">ON-HOLD - {{onHold.length}}</h3>
+    <h3 class="column__title background_on-hold">ON-HOLD - {{onHold.length}}</h3>
     <div class="column__content">
 
 
