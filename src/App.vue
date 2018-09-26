@@ -1,12 +1,15 @@
 <template>
   <div>
-    <div class="canban">
+    <!-- <div class="canban">
       <on-hold></on-hold>
       <in-progress></in-progress>
       <needs-review></needs-review>
       <approved></approved>
-    </div>
-    <hr>
+    </div> -->
+    <h1 style="color: white; text-align: center">Задача почти завершена. <br>
+    Осталось: <br>
+    1. Перетаскивание в пустую колонку <br>
+    2. Одно активное поле для добавления карточки в единицу времени</h1>
     <div class="canban">
       <template v-for="column in columnsList">
       <column :column="column"></column>
@@ -17,10 +20,10 @@
 </template>
 
 <script>
-import onHold from "./components/onHold";
-import inProgress from "./components/inProgress";
-import needsReview from "./components/needsReview";
-import approved from "./components/approved";
+// import onHold from "./components/onHold";
+// import inProgress from "./components/inProgress";
+// import needsReview from "./components/needsReview";
+// import approved from "./components/approved";
 import column from "./components/column";
 
 export default {
@@ -34,10 +37,10 @@ export default {
     this.$store.dispatch("getData");
   },
   components: {
-    onHold,
-    inProgress,
-    needsReview,
-    approved,
+    // onHold,
+    // inProgress,
+    // needsReview,
+    // approved,
     column
   }
 };

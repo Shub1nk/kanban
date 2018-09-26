@@ -22,18 +22,11 @@ const mutations = {
   SET_APPROVED(state, payload) {
     state.approved = payload;
   },
-
   INCREASE_ID_CARD(state) {
     state.idCard++;
   },
   GET_ID_CARD(state, payload) {
     state.idCard = payload;
-  },
-  // UPDATE_CARD_LIST(state, payload) {
-  //   state.cardsList.push(payload)
-  // },
-  REWRITE_CARD_LIST(state, payload) {
-    state.cardsList = payload;
   }
 };
 
@@ -43,7 +36,6 @@ const actions = {
       localStorage.setItem("state-app", "");
     } else {
       let stateApp = JSON.parse(localStorage.getItem("state-app"));
-      console.log(stateApp);
 
       commit("GET_ID_CARD", stateApp.idCard);
       commit("SET_ON_HOLD", stateApp.onHold);
@@ -65,12 +57,10 @@ const actions = {
 
 const getters = {
   idCard: state => state.idCard,
-  // onHold: state => state.cardsList.filter(card => card.area == "on-hold"),
-  // inProgress: state =>
-    // state.cardsList.filter(card => card.area == "in-progress"),
-  // needsReview: state =>
-    // state.cardsList.filter(card => card.area == "needs-review"),
-  // approved: state => state.cardsList.filter(card => card.area == "approved")
+  onHoldCounter: state => state.onHold.length,
+  inProgressCounter: state => state.inProgress.length,
+  needsReviewCounter: state => state.needsReview.length,
+  approvedCounter: state => state.approved.length,
 };
 
 Vue.use(Vuex);
