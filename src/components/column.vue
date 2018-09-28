@@ -6,7 +6,7 @@
 
 
       <ul class="column__card-list">
-        <draggable v-model="cardsList" :options="{group: 'cards'}" @end="setDataLocalStorage">
+        <draggable v-model="cardsList" class="drag-area" :options="{group: 'cards'}" @end="setDataLocalStorage">
         
 
           <li class="column__card-list__item"
@@ -147,6 +147,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.drag-area {
+  min-height: 10px;  
+}
+
 .column {
   width: 24%;
   overflow: hidden;
