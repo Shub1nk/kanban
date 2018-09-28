@@ -1,29 +1,14 @@
 <template>
   <div>
-    <!-- <div class="canban">
-      <on-hold></on-hold>
-      <in-progress></in-progress>
-      <needs-review></needs-review>
-      <approved></approved>
-    </div> -->
-    <h1 style="color: white; text-align: center">Задача почти завершена. <br>
-      Осталось: <br>
-      1. Перетаскивание в пустую колонку <br>
-    </h1>
     <div class="canban">
       <template v-for="column in columnsList">
       <column :column="column"></column>
     </template>
     </div>
   </div>
-  
 </template>
 
 <script>
-// import onHold from "./components/onHold";
-// import inProgress from "./components/inProgress";
-// import needsReview from "./components/needsReview";
-// import approved from "./components/approved";
 import column from "./components/column";
 
 export default {
@@ -37,10 +22,6 @@ export default {
     this.$store.dispatch("getData");
   },
   components: {
-    // onHold,
-    // inProgress,
-    // needsReview,
-    // approved,
     column
   }
 };
@@ -49,7 +30,6 @@ export default {
 <style lang="scss">
 .box {
   width: 100px;
-  // height: 100px;
   background: white;
   margin: 5px;
 }
@@ -84,8 +64,6 @@ body {
   width: 1000px;
   margin: 0 auto;
 }
-
-
   
 .column {
     width: 24%;

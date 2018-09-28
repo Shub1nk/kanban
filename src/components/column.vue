@@ -4,10 +4,8 @@
     :class="'background_' + column">{{ column }} - {{ cardsCounter }}</h3>
     <div class="column__content">
 
-
       <ul class="column__card-list">
         <draggable v-model="cardsList" class="drag-area" :options="{group: 'cards'}" @end="setDataLocalStorage">
-        
 
           <li class="column__card-list__item"
               v-for="card in cardsList" :key="card.id">
