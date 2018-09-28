@@ -1,4 +1,4 @@
-# trello
+# Канбан доска - аналог Trello на Vue.js + Vuex + Vuedraggable
 
 > A Vue.js project
 
