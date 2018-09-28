@@ -3,8 +3,8 @@
     <span></span>
     <a href="#" 
     class="column__open-from"
-    v-if="!displayForm"
-    @click="displayForm = true">+ Добавить еще одну карточку</a>
+    v-if="areaFormActive != area"
+    @click="setFormActive">+ Добавить еще одну карточку</a>
 
     <div v-else>
       <textarea name="" id="" class="column__textarea" ref="textarea" 
@@ -37,7 +37,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['idCard']),
+    ...mapGetters(['idCard', 'areaFormActive']),
   },
   methods: {
     addCard(area) {
@@ -54,12 +54,47 @@ export default {
 
       // console.log(cardObj);
 
-      this.$store.dispatch('addCard', cardObj)
+      switch (area) {
+        case 'on-hold': {
+          let data = this.$store.state.onHold;
+          data.push(cardObj);
+          this.$store.commit('SET_ON_HOLD', data); 
+          break;
+        }
+        case 'in-progress': {
+          let data = this.$store.state.inProgress;
+          data.push(cardObj);
+          this.$store.commit('SET_IN_PROGRESS', data); 
+          break;
+        }
+        case 'needs-review': {
+          let data = this.$store.state.needsReview;
+          data.push(cardObj);
+          this.$store.commit('SET_NEEDS_REVIEW', data); 
+          break;
+        }
+        case 'approved': {
+          let data = this.$store.state.approved
+          data.push(cardObj);
+          this.$store.commit('SET_APPROVED', data); 
+          break;
+        }
+
+        this.$store.commit('SET_AREA_FORM_ACTIVE', this.area);
+      }
+
+      localStorage.setItem('state-app', JSON.stringify(this.$store.state));
+      // this.$store.dispatch('addCard', cardObj)
     },
     closeForm() {
       this.$refs.textarea.value = '';
       this.buttonIsDisabled = null;
       this.displayForm = false
+      this.$store.commit('SET_AREA_FORM_ACTIVE', '');
+    },
+    setFormActive() {
+      console.log(this.area + ' = ' + this.setFormActive);
+      this.$store.commit('SET_AREA_FORM_ACTIVE', this.area);
     }
   }
 };

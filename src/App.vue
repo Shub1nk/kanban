@@ -1,41 +1,58 @@
 <template>
-  <div class="canban">
-    <on-hold></on-hold>
-    <in-progress></in-progress>
-    <needs-review></needs-review>
-    <approved></approved>
+  <div>
+    <!-- <div class="canban">
+      <on-hold></on-hold>
+      <in-progress></in-progress>
+      <needs-review></needs-review>
+      <approved></approved>
+    </div> -->
+    <h1 style="color: white; text-align: center">Задача почти завершена. <br>
+      Осталось: <br>
+      1. Перетаскивание в пустую колонку <br>
+    </h1>
+    <div class="canban">
+      <template v-for="column in columnsList">
+      <column :column="column"></column>
+    </template>
+    </div>
   </div>
+  
 </template>
 
 <script>
-import onHold from "./components/onHold";
-import inProgress from "./components/inProgress";
-import needsReview from "./components/needsReview";
-import approved from "./components/approved";
+// import onHold from "./components/onHold";
+// import inProgress from "./components/inProgress";
+// import needsReview from "./components/needsReview";
+// import approved from "./components/approved";
+import column from "./components/column";
 
 export default {
   name: "app",
+  data() {
+    return {
+      columnsList: ["on-hold", "in-progress", "needs-review", "approved"]
+    };
+  },
   created() {
     this.$store.dispatch("getData");
   },
   components: {
-    onHold,
-    inProgress,
-    needsReview,
-    approved,
+    // onHold,
+    // inProgress,
+    // needsReview,
+    // approved,
+    column
   }
 };
 </script>
 
 <style lang="scss">
-
 .box {
   width: 100px;
   // height: 100px;
   background: white;
   margin: 5px;
 }
-
 
 #app {
   font-family: "Tahoma";
@@ -48,16 +65,16 @@ body {
   background: #33363d;
 }
 
-.background-orange {
+.background_on-hold {
   background: #fb7e46;
 }
-.background-blue {
+.background_in-progress{
   background: #2a92bf;
 }
-.background-yellow {
+.background_needs-review {
   background: #f4ce46;
 }
-.background-green {
+.background_approved {
   background: #00b961;
 }
 
@@ -66,8 +83,11 @@ body {
   justify-content: space-between;
   width: 1000px;
   margin: 0 auto;
+}
 
-  .column {
+
+  
+.column {
     width: 24%;
     overflow: hidden;
 
@@ -76,6 +96,7 @@ body {
       font-weight: normal;
       color: white;
       margin: 0;
+      text-transform: uppercase;
     }
 
     .column__content {
@@ -164,6 +185,5 @@ body {
       }
     }
   }
-}
 </style>
 

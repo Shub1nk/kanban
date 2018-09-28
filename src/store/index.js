@@ -1,71 +1,71 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
 const state = {
   idCard: 0,
-  cardsList: []
+  onHold: [],
+  inProgress: [],
+  needsReview: [],
+  approved: [],
+  areaFormActive: ''
 };
 
 const mutations = {
+  SET_ON_HOLD(state, payload) {
+    state.onHold = payload;
+  },
+  SET_IN_PROGRESS(state, payload) {
+    state.inProgress = payload;
+  },
+  SET_NEEDS_REVIEW(state, payload) {
+    state.needsReview = payload;
+  },
+  SET_APPROVED(state, payload) {
+    state.approved = payload;
+  },
   INCREASE_ID_CARD(state) {
     state.idCard++;
   },
   GET_ID_CARD(state, payload) {
     state.idCard = payload;
   },
-  UPDATE_CARD_LIST(state, payload) {
-    state.cardsList.push(payload) 
-  },
-  REWRITE_CARD_LIST(state, payload) {
-    state.cardsList = payload;
+  SET_AREA_FORM_ACTIVE(state, payload) {
+    state.areaFormActive = payload;
   }
 };
 
 const actions = {
-  getData({commit}) {
-    console.log(JSON.parse(localStorage.getItem('cardsList')).length)
-    if (!localStorage.getItem('idCard') || JSON.parse(localStorage.getItem('cardsList')).length === 0) {
-      localStorage.setItem('idCard', Number(0));
+  getData({ commit }) {
+    if (!localStorage.getItem("state-app")) {
+      localStorage.setItem("state-app", "");
+    } else {
+      let stateApp = JSON.parse(localStorage.getItem("state-app"));
+
+      commit("GET_ID_CARD", stateApp.idCard);
+      commit("SET_ON_HOLD", stateApp.onHold);
+      commit("SET_IN_PROGRESS", stateApp.inProgress);
+      commit("SET_NEEDS_REVIEW", stateApp.needsReview);
+      commit("SET_APPROVED", stateApp.approved);
     }
-    if (!localStorage.getItem('cardsList')) {
-
-      let cardsList = [];
-      localStorage.setItem('cardsList', cardsList);
-    }
-
-    let idCard = Number(localStorage.getItem('idCard'));
-    commit('GET_ID_CARD', idCard);
-
-    let cardsList = JSON.parse(localStorage.getItem('cardsList'))
-    commit('REWRITE_CARD_LIST', cardsList);
   },
-  updateIdCard({commit}, payload) {
-    commit('INCREASE_ID_CARD', payload);
-    localStorage.setItem('idCard', state.idCard);
+  updateIdCard({ commit }, payload) {
+    commit("INCREASE_ID_CARD", payload);
   },
-  addCard({commit}, payload) {
-    commit('UPDATE_CARD_LIST', payload);
-
-    //localStorage
-    localStorage.setItem('cardsList', JSON.stringify(state.cardsList));
-  },
-  removeCard({commit}, payload) {
+  removeCard({ commit }, payload) {
     let cardsList = this.state.cardsList;
     let indexToRemove = cardsList.findIndex(obj => obj.id === payload);
     cardsList.splice(indexToRemove, 1);
-    commit('REWRITE_CARD_LIST', cardsList);
-
-    //localStorage
-    localStorage.setItem('cardsList', JSON.stringify(state.cardsList));
+    commit("REWRITE_CARD_LIST", cardsList);
   }
 };
 
 const getters = {
   idCard: state => state.idCard,
-  onHold: state => state.cardsList.filter(card => card.area == 'on-hold'),
-  inProgress: state => state.cardsList.filter(card => card.area == 'in-progress'),
-  needsReview: state => state.cardsList.filter(card => card.area == 'needs-review'),
-  approved: state => state.cardsList.filter(card => card.area == 'approved')
+  onHoldCounter: state => state.onHold.length,
+  inProgressCounter: state => state.inProgress.length,
+  needsReviewCounter: state => state.needsReview.length,
+  approvedCounter: state => state.approved.length,
+  areaFormActive: state => state.areaFormActive
 };
 
 Vue.use(Vuex);
@@ -74,7 +74,7 @@ const store = new Vuex.Store({
   state,
   mutations,
   actions,
-  getters,
-})
+  getters
+});
 
 export default store;
