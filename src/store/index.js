@@ -6,7 +6,8 @@ const state = {
   onHold: [],
   inProgress: [],
   needsReview: [],
-  approved: []
+  approved: [],
+  areaFormActive: ''
 };
 
 const mutations = {
@@ -27,6 +28,9 @@ const mutations = {
   },
   GET_ID_CARD(state, payload) {
     state.idCard = payload;
+  },
+  SET_AREA_FORM_ACTIVE(state, payload) {
+    state.areaFormActive = payload;
   }
 };
 
@@ -61,6 +65,7 @@ const getters = {
   inProgressCounter: state => state.inProgress.length,
   needsReviewCounter: state => state.needsReview.length,
   approvedCounter: state => state.approved.length,
+  areaFormActive: state => state.areaFormActive
 };
 
 Vue.use(Vuex);

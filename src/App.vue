@@ -7,9 +7,9 @@
       <approved></approved>
     </div> -->
     <h1 style="color: white; text-align: center">Задача почти завершена. <br>
-    Осталось: <br>
-    1. Перетаскивание в пустую колонку <br>
-    2. Одно активное поле для добавления карточки в единицу времени</h1>
+      Осталось: <br>
+      1. Перетаскивание в пустую колонку <br>
+    </h1>
     <div class="canban">
       <template v-for="column in columnsList">
       <column :column="column"></column>
